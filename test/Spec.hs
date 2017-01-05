@@ -59,6 +59,16 @@ main =
       ((unfold (\x → (x `mod` 3 == 2, x ^ 2 - 1)) 2) ∷ Vec 3 Bool) `shouldBe` True :# False :# True :# Nil
       ((unfold (\x → (x `mod` 3 == 2, x ^ 2 - 1)) 2) ∷ Vec 2 Bool) `shouldBe` True :# False :# Nil
 
+  describe "iterateU" $ do
+    it "stops at right n" $ do
+      (iterateU succ 1 :: Vec 3 Int) `shouldBe` 1 :# 2 :# 3 :# Nil
+      (iterateU succ 1 :: Vec 10 Int) `shouldBe` 1 :# 2 :# 3 :# 4 :# 5 :# 6 :# 7 :# 8 :# 9 :# 10 :# Nil
+
+  describe "replicateU" $ do
+    it "stops at right n" $ do
+      (replicateU 'a' :: Vec 4 Char) `shouldBe` 'a' :# 'a' :# 'a' :# 'a' :# Nil
+   
+
   -- Functor
   describe "fmap" $ do
     it "can be mapped over" $ do
@@ -84,3 +94,4 @@ main =
   -- describe "index" $ do
   --   it "can be indexed into" $ do
   --     index 2 ((1 :# 2 :# 3 :# Nil) ∷ Vec 3 Int) `shouldBe` 3
+
