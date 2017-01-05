@@ -53,6 +53,10 @@ fromListMaybes =
                      x:xs → (Just x,  xs)
   
 
+fromListU ∷ (Unfoldable t, Traversable t) ⇒ [α] → Maybe (t α)
+fromListU = sequence . fromListMaybes
+
+
 ----------------------
 
 -- List instance of Unfoldable.

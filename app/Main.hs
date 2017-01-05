@@ -3,7 +3,8 @@
 module Main where
 
 import Prelude hiding (return)
-import Vec
+-- import Vec
+import VecLit
 
 main ∷ IO ()
 main = do
