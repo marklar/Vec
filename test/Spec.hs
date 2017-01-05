@@ -8,7 +8,9 @@ import Test.Hspec
 -- import GHC.TypeLits
 import VecLit
 import Unfoldable
+import Control.Applicative
 import Data.Foldable
+import Data.Proxy
 
 main :: IO ()
 main =
@@ -84,14 +86,17 @@ main =
     it "can be toList-ed" $ do
       toList ((1 :# 2 :# 3 :# Nil) ∷ Vec 3 Int) `shouldBe` [1,2,3]
 
-  -- describe "applicative" $ do
+  describe "applicative" $ do
+    it "can work w/ liftA2 and pure" $ do
+      (pure 10 :: Vec 2 Int) `shouldBe` 10 :# 10 :# Nil
+      (liftA2 (+) ((1 :# 2 :# 3 :# Nil) ∷ Vec 3 Int) ((100 :# 200 :# 300 :# Nil) ∷ Vec 3 Int)) `shouldBe` 101 :# 202 :# 303 :# Nil
 
   -- Traversable
   describe "sequence" $ do
     it "can be sequenced" $ do
       sequence ((Just 1 :# Just 2 :# Just 3 :# Nil) ∷ Vec 3 (Maybe Int)) `shouldBe` Just (1 :# 2 :# 3 :# Nil)
 
-  -- describe "index" $ do
-  --   it "can be indexed into" $ do
-  --     index 2 ((1 :# 2 :# 3 :# Nil) ∷ Vec 3 Int) `shouldBe` 3
+  describe "index" $ do
+    it "can be indexed into" $ do
+      index (Proxy ∷ Proxy 2) ((1 :# 2 :# 3 :# Nil) ∷ Vec 3 Int) `shouldBe` 3
 

@@ -107,6 +107,14 @@ instance Functor (Vec n) where
   fmap _ Nil       = Nil
   fmap f (x :# xs) = f x :# fmap f xs
 
+------
+
+-- class (Functor f) => Applicative f where
+--   -- pure ~ return
+--   pure :: a -> f a
+--   -- <*> ~ fmap (but first extracting fn from inside f (functor)
+--   -- somewhat ~ to >>=
+--   (<*>) :: f (a -> b) -> f a -> f b
 
 instance Applicative (Vec 0) where
   pure _    = Nil
@@ -117,6 +125,7 @@ instance (n > 0, Applicative (Vec (n - 1))) ⇒ Applicative (Vec n) where
   pure x = x :# pure x
   (f :# fs) <*> (x :# xs) = f x :# (fs <*> xs)
 
+------
 
 instance Traversable (Vec 0) where
   traverse _ Nil = pure Nil
