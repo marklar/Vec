@@ -75,21 +75,21 @@ main =
       fmap (*3) (1 :# 2 :# 3 :# Nil) `shouldBe` (3 :# 6 :# 9 :# Nil)
 
   -- Foldable
-  -- Reduction stack overflow… 
-  -- describe "foldr'" $ do
-  --   it "folds" $ do
-  --     foldr' (:) [] (1 :# 2 :# 3 :# Nil) `shouldBe` [1, 2, 3]
+  -- Without type annotation we get: Reduction stack overflow.
+  describe "foldr'" $ do
+    it "folds" $ do
+      foldr' (:) [] ((1 :# 2 :# 3 :# Nil) ∷ Vec 3 Int) `shouldBe` [1, 2, 3]
 
-  -- describe "toList" $ do
-  --   it "can be toList-ed" $ do
-  --     toList (1 :# 2 :# 3 :# Nil) `shouldBe` [1,2,3]
+  describe "toList" $ do
+    it "can be toList-ed" $ do
+      toList ((1 :# 2 :# 3 :# Nil) ∷ Vec 3 Int) `shouldBe` [1,2,3]
 
   -- describe "applicative" $ do
 
   -- Traversable
-  -- describe "sequence" $ do
-  --   it "can be sequenced" $ do
-  --     sequence (Just 1 :# Just 2 :# Just 3 :# Nil) `shouldBe` Just (1 :# 2 :# 3 :# Nil)
+  describe "sequence" $ do
+    it "can be sequenced" $ do
+      sequence ((Just 1 :# Just 2 :# Just 3 :# Nil) ∷ Vec 3 (Maybe Int)) `shouldBe` Just (1 :# 2 :# 3 :# Nil)
 
   -- describe "index" $ do
   --   it "can be indexed into" $ do
